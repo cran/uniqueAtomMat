@@ -1,0 +1,12 @@
+340085b0f41beba2e903d308ef2491ff *DESCRIPTION
+4a66e15ca39f478e2a8c238c81dfd8ac *NAMESPACE
+78cccc173ff67ad965ac8e1dcfa7f9b0 *R/duplicated.matrix.R
+841643a3738b2c060096a0a504f0fc1f *man/grpDuplicated.Rd
+326af6d5d7982b8ea163a82bf41e57f7 *man/unique.Rd
+bd7a4448b04d9547bc9d42b0f9416e93 *src/CharSEXP.h
+e65a99c138a16d7ece7e68b4b98bef5d *src/dupAtomMat.cpp
+6d0e7873ce260c768894799d938190dc *src/lessAndEqual.h
+619963be09b91efd60cb23e48185dc42 *src/rcSet.h
+27d9c64b4535e2c8bd067d252d30092e *src/registration.c
+f834a35e3ae3097564be0fdd7df3d5f1 *tests/testGrpDup.R
+d8485d96f0931743927bb6f670221468 *tests/testUnique.R
