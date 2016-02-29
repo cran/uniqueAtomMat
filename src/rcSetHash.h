@@ -1,12 +1,53 @@
-#include <set>
+#include <unordered_set>
+#include <functional>
 
 #include "rcVec.h"
 
+/* Needs global randbit, lshift, rshift defined */
+
+namespace std {
+	
 template <typename T>
-class vecSet {  // a set with key being rcVec type
+struct hash <rcVec<T> > {
+public: 
+	size_t operator() (const rcVec<T> & x) const
+	{	size_t ans = 0;
+		int i ;
+		for(i = x.len - 1; i >=0; i--)
+			ans ^= ((hash<T>()(*(x.x + x.eltShift * i) )) ^ randbit.randbit) + (ans<<lshift) + (ans>>rshift) ;
+		return ans;
+	}
+};
+
+template <>
+struct hash <CharSEXP > {
+public: 
+	size_t operator() (const CharSEXP & x) const
+	{	
+		return std::hash<char *>()(const_cast<char *>(CHAR(x.sexp)) );
+	}
+};
+
+
+template <>
+struct hash <Rcomplex > {
+public: 
+	size_t operator() (const Rcomplex & x) const
+	{	
+		size_t tmp;
+		tmp = std::hash<double>()(x.r);
+		return tmp ^ ( ( std::hash<double>()(x.i)  ^ randbit.randbit) + (tmp<<lshift) + (tmp>>rshift) ); 
+	}
+};
+
+
+}
+
+template <typename T>
+class vecSetHash {  // a set with key being rcVec type
 private:
     rcVec<T> aRC; 
-    typedef std::set<rcVec<T> > rcvSetType;
+    typedef std::unordered_set<rcVec<T> > rcvSetType;
     std::pair<typename rcvSetType::iterator,bool> retPair; // not used
     rcvSetType rcvSet; // using operator< of rcVec<T>
 
@@ -17,7 +58,7 @@ public:
 };
 
 template <typename T>
-void vecSet<T>::duplicatedMat (const T* x, const int* nrow, const int* ncol, int* const out, bool const byRow, bool const fromLast)
+void vecSetHash<T>::duplicatedMat (const T* x, const int* nrow, const int* ncol, int* const out, bool const byRow, bool const fromLast)
 {
     /* put a logical vector of duplicated rows of numeric matrix x into out */
     if(byRow){
@@ -44,7 +85,7 @@ void vecSet<T>::duplicatedMat (const T* x, const int* nrow, const int* ncol, int
 
 
 template <typename T>
-void vecSet<T>::anyDuplicatedMat (const T* x, const int* nrow, const int* ncol, int* const out, bool const byRow, bool const fromLast)
+void vecSetHash<T>::anyDuplicatedMat (const T* x, const int* nrow, const int* ncol, int* const out, bool const byRow, bool const fromLast)
 {
     /* put a logical vector of duplicated rows of numeric matrix x into out */
     if(byRow){
@@ -77,13 +118,13 @@ void vecSet<T>::anyDuplicatedMat (const T* x, const int* nrow, const int* ncol, 
     rcvSet.clear();
 }
 
-#include <map>
+#include <unordered_map>
 
 template <typename T>
-class vecMap {  // a set with key being rcVec type
+class vecMapHash {  // a set with key being rcVec type
 private:
     rcVec<T> aRC; 
-    typedef std::map<rcVec<T>, int > rcvMapType;
+    typedef std::unordered_map<rcVec<T>, int  > rcvMapType;
     std::pair<typename rcvMapType::iterator,bool> retPair; 
     rcvMapType rcvMap; // using operator< of rcVec<T>
 
@@ -92,7 +133,7 @@ public:
 };
 
 template <typename T>
-int vecMap<T>::grpDuplicatedMat (const T* x, const int* nrow, const int* ncol, int* const out, bool const byRow, bool const fromLast)
+int vecMapHash<T>::grpDuplicatedMat (const T* x, const int* nrow, const int* ncol, int* const out, bool const byRow, bool const fromLast)
 {
     /* put a logical vector of duplicated rows of numeric matrix x into out */
     if(byRow){

@@ -21,8 +21,16 @@ class CharSEXP{
 		SEXP sexp;
 		inline bool valid() {return( TYPEOF(sexp) == CHARSXP );}
 		
-		CharSEXP(SEXP );
-		CharSEXP();
+		CharSEXP(SEXP x)
+		{
+			if (TYPEOF(x) == CHARSXP) sexp = x;
+			else error("CharSEXP should be initialized with a CHARSXP type object");
+		}
+				
+		CharSEXP()
+		{
+			sexp = R_NaString; 
+		}
 		
 		friend inline bool operator< (const CharSEXP& lhs, const CharSEXP& rhs) 
 		{
@@ -60,15 +68,5 @@ class CharSEXP{
 		 */
 };
 
-CharSEXP::CharSEXP(SEXP x)
-{
-	if (TYPEOF(x) == CHARSXP) sexp = x;
-	else error("CharSEXP should be initialized with a CHARSXP type object");
-}
-		
-CharSEXP::CharSEXP()
-{
-	sexp = R_NaString; 
-}
-	
+
 

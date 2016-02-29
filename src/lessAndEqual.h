@@ -25,7 +25,7 @@ template <typename T>
 
 /* double Assumptions: NaN < NA_real_ < -Inf < Finite numbers < Inf */
 template <>
- bool lessThan<double>(const double& lhs, const double& rhs) 
+inline bool lessThan<double>(const double& lhs, const double& rhs) 
 {
     if (R_FINITE(lhs) && R_FINITE(rhs)) return lhs< rhs; // probably the most common case (both finite)
     
@@ -42,7 +42,7 @@ template <>
     return R_FINITE(lhs);           // lhs is finite or +Inf but rhs is +Inf
 }
 template <>
- bool equalTo<double> (const double& lhs, const double& rhs) 
+inline bool equalTo<double> (const double& lhs, const double& rhs) 
 {return(
     (lhs == rhs) ||
     (ISNA(lhs) && ISNA(rhs)) ||
@@ -53,13 +53,13 @@ template <>
 
 
 template <>
- bool lessThan<Rcomplex> (const Rcomplex& lhs, const Rcomplex& rhs) 
+inline bool lessThan<Rcomplex> (const Rcomplex& lhs, const Rcomplex& rhs) 
 {
     if (equalTo<double>(lhs.r , rhs.r)) return lessThan<double>(lhs.i , rhs.i);
     return lessThan<double>(lhs.r , rhs.r);
 }
 template <>
- bool equalTo<Rcomplex> (const Rcomplex& lhs, const Rcomplex& rhs) 
+inline bool equalTo<Rcomplex> (const Rcomplex& lhs, const Rcomplex& rhs) 
 {
     return equalTo<double>(lhs.r, rhs.r) && equalTo<double>(lhs.i, rhs.i) ;
 }

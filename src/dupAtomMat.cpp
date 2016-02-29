@@ -1,3 +1,6 @@
+#include "config.h"
+#ifndef HAVE_CXX1X
+
 #include "rcSet.h"
 
 // instantiation of global objects:
@@ -24,8 +27,8 @@ SEXP dupAtomMat(SEXP x, SEXP MARGIN, SEXP fromLast)
 	
 	switch (TYPEOF(x)) {
 		case REALSXP:
-			doubleVecSet.duplicatedMat	(REAL(x), dim, dim+1,  LOGICAL(out), *INTEGER(MARGIN)==1, (bool)(*(LOGICAL(fromLast))) );
-			break;
+    		doubleVecSet.duplicatedMat	(REAL(x), dim, dim+1,  LOGICAL(out), *INTEGER(MARGIN)==1, (bool)(*(LOGICAL(fromLast))) );
+    		break;
 		case INTSXP:  // factor type is also covered here
 			// if(!inherits(x, "factor"))
 				intVecSet.duplicatedMat	(INTEGER(x), dim, dim+1,  LOGICAL(out), *INTEGER(MARGIN)==1, (bool)(*(LOGICAL(fromLast))) );
@@ -152,3 +155,5 @@ SEXP grpDupAtomMat(SEXP x, SEXP MARGIN, SEXP fromLast)
 }
 
 }
+
+#endif
