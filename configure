@@ -1,10 +1,8 @@
+#! /bin/sh
 cxx1xRslt=`"${R_HOME}/bin${R_ARCH_BIN}/R" CMD config CXX1X`
 if test -n "$cxx1xRslt" ; then
 	echo "CXX_STD = CXX11" > src/Makevars
 	echo "#define HAVE_CXX1X" > src/config.h
-	CXX1XSTD=`"${R_HOME}/bin${R_ARCH_BIN}/R" CMD config CXX11XSTD`
-	CXX="$(CXX1X) $(CXX1XSTD)"
-	CXXFLAGS=`"${R_HOME}/bin${R_ARCH_BIN}/R" CMD config CXX11XFLAGS`
 else
 	echo "#undef HAVE_CXX1X" > src/config.h
 fi

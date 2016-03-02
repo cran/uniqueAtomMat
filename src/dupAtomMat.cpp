@@ -54,7 +54,7 @@ SEXP dupAtomMat(SEXP x, SEXP MARGIN, SEXP fromLast)
 			rawVecSet.duplicatedMat	(RAW(x), dim, dim+1,  LOGICAL(out), *INTEGER(MARGIN)==1, (bool)(*(LOGICAL(fromLast))) );
 			break;
 		default:
-			error("C function 'dumNumMat' only accepts REALSXP, LGLSXP, INTSXP and STRSXP");
+			error("C function 'dupAtomMat' only accepts REALSXP, LGLSXP, INTSXP and STRSXP");
 	}
 	
 	UNPROTECT(1);
@@ -99,7 +99,7 @@ SEXP anyDupAtomMat(SEXP x, SEXP MARGIN, SEXP fromLast)
 			rawVecSet.anyDuplicatedMat	(RAW(x), dim, dim+1,  INTEGER(out), *INTEGER(MARGIN)==1, (bool)(*(LOGICAL(fromLast))) );
 			break;
 		default:
-			error("C function 'anyDumNumMat' only accepts REALSXP, LGLSXP, INTSXP and STRSXP");
+			error("C function 'anyDupAtomMat' only accepts REALSXP, LGLSXP, INTSXP and STRSXP");
 	}
 	
 	UNPROTECT(1);

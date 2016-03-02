@@ -1,3 +1,4 @@
+#include <cstddef>   /* for size_t */ 
 #include <unordered_set>
 #include <functional>
 

@@ -1,3 +1,4 @@
+#! /bin/sh
 cxx1xRslt=`"${R_HOME}/bin${R_ARCH_BIN}/R" CMD config CXX1X`
 if test -n "$cxx1xRslt" ; then
 	echo "CXX_STD = CXX11" > src/Makevars.win

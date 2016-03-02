@@ -3,6 +3,7 @@
 
 #include <climits>  /* for CHAR_BIT */
 #include <cstdint> 	 /* for uint_fast32_t etc */
+#include <cstddef>  /* for size_t */ 
 
 #define RANDBIT8  0x8B
 #define RANDBIT16 0x135E
@@ -81,7 +82,7 @@ SEXP dupAtomMatHash(SEXP x, SEXP MARGIN, SEXP fromLast)
 			rawVecSetHash.duplicatedMat	(RAW(x), dim, dim+1,  LOGICAL(out), *INTEGER(MARGIN)==1, (bool)(*(LOGICAL(fromLast))) );
 			break;
 		default:
-			error("C function 'dumNumMat' only accepts REALSXP, LGLSXP, INTSXP and STRSXP");
+			error("C function 'dupAtomMatHash' only accepts REALSXP, LGLSXP, INTSXP and STRSXP");
 	}
 	
 	UNPROTECT(1);
@@ -126,7 +127,7 @@ SEXP anyDupAtomMatHash(SEXP x, SEXP MARGIN, SEXP fromLast)
 			rawVecSetHash.anyDuplicatedMat	(RAW(x), dim, dim+1,  INTEGER(out), *INTEGER(MARGIN)==1, (bool)(*(LOGICAL(fromLast))) );
 			break;
 		default:
-			error("C function 'anyDumNumMat' only accepts REALSXP, LGLSXP, INTSXP and STRSXP");
+			error("C function 'anyDupAtomMatHash' only accepts REALSXP, LGLSXP, INTSXP and STRSXP");
 	}
 	
 	UNPROTECT(1);
@@ -170,7 +171,7 @@ SEXP grpDupAtomMatHash(SEXP x, SEXP MARGIN, SEXP fromLast)
 			nGrps = rawVecMapHash.grpDuplicatedMat	(RAW(x), dim, dim+1,  INTEGER(out), *INTEGER(MARGIN)==1, (bool)(*(LOGICAL(fromLast))) );
 			break;
 		default:
-			error("C function 'grpDupAtomMat' only accepts REALSXP, LGLSXP, INTSXP and STRSXP");
+			error("C function 'grpDupAtomMatHash' only accepts REALSXP, LGLSXP, INTSXP and STRSXP");
 	}
 	
     SEXP nLevels;
