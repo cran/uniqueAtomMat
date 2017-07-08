@@ -1,6 +1,6 @@
 duplicated.matrix = function (x, incomparables = FALSE, MARGIN = 1L, fromLast = FALSE, signif=Inf, ...)
 {
-	if (!is.matrix(x) || !is.atomic(x) || !identical(incomparables, FALSE) || ((nzeroMarg <-MARGIN[1L]!=0L) && MARGIN[1L]!=1L && MARGIN[1L]!=2L) || length(MARGIN)!=1L )
+	if (!is.matrix(x) || !is.atomic(x) || !identical(incomparables, FALSE) || ((nzeroMarg <-MARGIN[1L]!=0L) && MARGIN[1L]!=1L && MARGIN[1L]!=2L) || length(MARGIN)!=1L || (nzeroMarg && dim(x)[-MARGIN]==1L) )
 		return(base::duplicated.matrix(x, incomparables, MARGIN, fromLast, ...))
     
     if(is.null(signif)) signif = .Call(C_dbl_dig)
@@ -22,7 +22,7 @@ duplicated.matrix = function (x, incomparables = FALSE, MARGIN = 1L, fromLast = 
 
 unique.matrix=function (x, incomparables = FALSE, MARGIN = 1, fromLast = FALSE, signif=Inf, ...)
 {
-	if (!is.matrix(x) || !is.atomic(x) || !identical(incomparables, FALSE) || (MARGIN[1L]!=1L && MARGIN[1L]!=2L) || length(MARGIN)!=1L )
+	if (!is.matrix(x) || !is.atomic(x) || !identical(incomparables, FALSE) || (MARGIN[1L]!=1L && MARGIN[1L]!=2L) || length(MARGIN)!=1L || dim(x)[-MARGIN]==1L )
 		return(base::unique.matrix(x, incomparables, MARGIN, fromLast, ...))
 
     if(is.null(signif)) signif = .Call(C_dbl_dig)
@@ -35,7 +35,7 @@ unique.matrix=function (x, incomparables = FALSE, MARGIN = 1, fromLast = FALSE, 
 
 anyDuplicated.matrix=function(x, incomparables = FALSE, MARGIN = 1, fromLast = FALSE, signif=Inf, ...)
 {
-    if (!is.matrix(x) || !is.atomic(x) || !identical(incomparables, FALSE) || ((nzeroMarg <-MARGIN[1L]!=0L) && MARGIN[1L]!=1L && MARGIN[1L]!=2L) || length(MARGIN)!=1L )
+    if (!is.matrix(x) || !is.atomic(x) || !identical(incomparables, FALSE) || ((nzeroMarg <-MARGIN[1L]!=0L) && MARGIN[1L]!=1L && MARGIN[1L]!=2L) || length(MARGIN)!=1L || prod(dim(x)[-MARGIN])==1L )
         return(base::anyDuplicated.matrix(x, incomparables, MARGIN, fromLast, ...))
 
     if(is.null(signif)) signif = .Call(C_dbl_dig)

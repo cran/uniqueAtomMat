@@ -33,4 +33,6 @@ void R_init_uniqueAtomMat(DllInfo *info)
    if(!initHash())error("Hashing initialization error");
 #endif   
    R_registerRoutines(info, NULL, callMethods, NULL, NULL);
+   R_useDynamicSymbols(info, FALSE);
+   R_forceSymbols(info, TRUE);
 }
